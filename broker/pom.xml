@@ -1,0 +1,10 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion>
+  <parent><groupId>br.org.igreja</groupId><artifactId>escalas-distribuidas</artifactId><version>1.0.0</version></parent><artifactId>broker</artifactId>
+  <properties><app.main>br.org.igreja.broker.BrokerApp</app.main></properties>
+  <dependencies>
+    <dependency><groupId>org.apache.activemq</groupId><artifactId>activemq-broker</artifactId></dependency>
+    <dependency><groupId>org.apache.activemq</groupId><artifactId>activemq-kahadb-store</artifactId></dependency>
+    <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId></dependency>
+  </dependencies>
+  <build><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId></plugin></plugins></build>
+</project>

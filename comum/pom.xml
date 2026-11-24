@@ -1,0 +1,9 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion>
+  <parent><groupId>br.org.igreja</groupId><artifactId>escalas-distribuidas</artifactId><version>1.0.0</version></parent><artifactId>comum</artifactId>
+  <dependencies>
+    <dependency><groupId>com.google.code.gson</groupId><artifactId>gson</artifactId></dependency>
+    <dependency><groupId>com.h2database</groupId><artifactId>h2</artifactId></dependency>
+    <dependency><groupId>org.apache.activemq</groupId><artifactId>activemq-client</artifactId></dependency>
+    <dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId></dependency>
+  </dependencies>
+</project>

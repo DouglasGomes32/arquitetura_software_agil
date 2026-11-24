@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#122735">
+  <title>Escalas e Avisos · Igreja Escalas</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/painel/app.css">
+  <script src="/painel/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Igreja Escalas, início"><span class="brand-mark">✦</span><span>Igreja Escalas<small>CUIDAR DE QUEM SERVE</small></span></a>
+    <p class="nav-label">ESPAÇO DE TRABALHO</p>
+    <nav aria-label="Navegação principal">
+      <a href="#escalas" class="nav-item active" data-nav="escalas"><span aria-hidden="true">▦</span> Escalas <span class="nav-count" id="nav-count">0</span></a>
+      <a href="#avisos" class="nav-item" data-nav="avisos"><span aria-hidden="true">☷</span> Caixa de avisos</a>
+    </nav>
+    <div class="sidebar-note"><span class="live-dot"></span> Ambiente de demonstração<p>Perfil B · Java 21<br>Dados locais, sem envio externo.</p></div>
+    <div class="sidebar-footer"><span class="avatar">IE</span><div>Projeto final<small>Escalas e comunicação</small></div></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar"><span>Projeto final <span class="crumb">/</span> <strong id="breadcrumb">Escalas</strong></span><div class="top-actions"><span class="local-label">● LOCAL</span><button type="button" id="refresh" class="button subtle">↻ Atualizar</button></div></header>
+    <main>
+      <section class="page-heading"><div><p class="eyebrow">ORGANIZE. PUBLIQUE. COMUNIQUE.</p><h1 id="page-title">Cada pessoa, no seu lugar.</h1><p id="page-description">Prepare as escalas e acompanhe os avisos da sua equipe.</p></div><button type="button" class="button primary" id="new-schedule">+ Nova escala</button></section>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+      <section class="metrics" aria-label="Resumo do ambiente">
+        <article class="metric"><div class="metric-heading">Escalas listadas <span class="metric-icon blue">▦</span></div><strong id="metric-schedules">—</strong><small>Rascunhos e publicações</small></article>
+        <article class="metric"><div class="metric-heading">Eventos processados <span class="metric-icon green">✓</span></div><strong id="metric-events">—</strong><small>Publicações recebidas pela fila</small></article>
+        <article class="metric"><div class="metric-heading">Duplicados ignorados <span class="metric-icon amber">↻</span></div><strong id="metric-duplicates">—</strong><small>Sem gerar novos avisos</small></article>
+      </section>
+
+      <section id="schedules-view">
+        <div class="section-heading"><div><h2>Suas escalas</h2><p>Organize a equipe antes de publicar.</p></div><label class="filter-label">Exibir <select id="status-filter"><option value="ALL">Todos os status</option><option value="RASCUNHO">Rascunhos</option><option value="PUBLICADA">Publicadas</option></select></label></div>
+        <div class="panel"><div class="table-scroll"><table><thead><tr><th>EVENTO</th><th>DATA</th><th>EQUIPE</th><th>STATUS</th><th class="align-right">AÇÕES</th></tr></thead><tbody id="schedule-rows"></tbody></table></div><div id="schedules-empty" class="empty" hidden><span class="empty-icon">▦</span><h3>Uma nova escala começa aqui</h3><p>Cadastre um evento e escolha quem vai servir.<br>Depois, publique para gerar os avisos da equipe.</p><button type="button" class="button primary" id="empty-new">+ Criar primeira escala</button></div><p class="table-footer">Até 100 escalas, ordenadas pela data do evento.</p></div>
+        <div class="info-banner"><span aria-hidden="true">↗</span><div><strong>Da publicação ao aviso, tudo conectado.</strong><p>Ao publicar, a fila entrega o evento ao serviço de avisos. Reentregar o mesmo evento mantém um único aviso por pessoa.</p></div><a href="#avisos">Ver avisos →</a></div>
+      </section>
+
+      <section id="inbox-view" hidden>
+        <div class="section-heading"><div><h2>Caixa de avisos</h2><p>Consulte as publicações recebidas por cada pessoa.</p></div><span id="cache-badge" class="badge neutral">Ainda não consultado</span></div>
+        <form id="inbox-form" class="panel inbox-search"><label for="volunteer-id">Identificador do voluntário<input id="volunteer-id" name="voluntarioId" placeholder="Ex.: ana" maxlength="64" required list="volunteer-options" autocomplete="off"><datalist id="volunteer-options"></datalist></label><button type="submit" class="button primary" id="query-inbox">Consultar avisos</button></form>
+        <p class="cache-help" id="cache-help">O cache guarda a consulta por 60 segundos e é invalidado quando novos avisos chegam.</p>
+        <div id="inbox-results" class="inbox-results"><div class="panel empty"><span class="empty-icon">☷</span><h3>Os avisos da equipe ficam aqui</h3><p>Informe o identificador usado no cadastro da escala<br>para consultar os avisos dessa pessoa.</p></div></div>
+      </section>
+
+      <footer class="system-status" aria-live="polite"><span id="producer-status">● Verificando Escalas</span><span id="consumer-status">● Verificando Avisos</span><span id="queue-status">● Verificando fila</span><span class="status-caption">Dois serviços · dois bancos · uma fila</span></footer>
+    </main>
+  </div>
+
+  <dialog id="schedule-dialog" aria-labelledby="dialog-title"><form id="schedule-form"><div class="dialog-heading"><div><p class="eyebrow">PREPARE A EQUIPE</p><h2 id="dialog-title">Nova escala</h2></div><button type="button" id="close-dialog" class="icon-button" aria-label="Fechar">×</button></div><p class="dialog-description">Salve como rascunho. A publicação é feita após a revisão.</p>
+    <label for="event-name">Nome do evento<input id="event-name" name="evento" required maxlength="120" placeholder="Ex.: Culto de domingo"></label>
+    <label for="event-date">Data do evento<input id="event-date" name="data" type="date" required></label>
+    <div class="team-heading"><h3>Voluntários</h3><span>Identificador e nome de cada pessoa</span></div><div id="volunteer-fields"></div><button type="button" id="add-volunteer" class="button subtle add-volunteer">+ Adicionar voluntário</button>
+    <p id="form-error" class="form-error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel-dialog" class="button secondary">Cancelar</button><button type="submit" id="save-schedule" class="button primary">Salvar rascunho</button></div>
+  </form></dialog>
+</body>
+</html>

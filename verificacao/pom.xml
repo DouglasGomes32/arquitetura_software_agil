@@ -1,0 +1,9 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion>
+  <parent><groupId>br.org.igreja</groupId><artifactId>escalas-distribuidas</artifactId><version>1.0.0</version></parent><artifactId>verificacao</artifactId>
+  <dependencies>
+    <dependency><groupId>br.org.igreja</groupId><artifactId>broker</artifactId><version>${project.version}</version><scope>test</scope></dependency>
+    <dependency><groupId>br.org.igreja</groupId><artifactId>escalas</artifactId><version>${project.version}</version><scope>test</scope></dependency>
+    <dependency><groupId>br.org.igreja</groupId><artifactId>avisos</artifactId><version>${project.version}</version><scope>test</scope></dependency>
+    <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><scope>test</scope></dependency>
+  </dependencies>
+</project>
